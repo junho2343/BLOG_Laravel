@@ -4,9 +4,9 @@
 	<div class="container">
 		@if(session()->has('admin'))
 
-		<!-- 내용추가 -->
+		<!-- 카테고리추가 -->
 		<form action="{{ url('/admin/category') }}" method="post" class="form w-100">
-			{{ csrf_field() }}
+			@csrf
 			<input type="hidden" name="type" value="category">
 			<div class="head">
 				<h3>Category Add</h3>
@@ -19,7 +19,7 @@
 
 		<!-- 카데고리 -> 내용추가 -->
 		<form action="{{ url('/admin/post') }}" method="post" class="form w-100">
-			{{ csrf_field() }}
+			@csrf
 			<input type="hidden" name="type" value="post">
 			<div class="head">
 				<h3>Post Add</h3>
@@ -43,7 +43,7 @@
 			</div>
 			<div class="body">
 				@foreach ($categorys as $category)
-					<p><a href="{{ url('/admin/post?idx='.$category->idx.'%'.csrf_token().'') }}">{{ $category->name }}</a> - {{ $category->count }}개</p>
+					<p><a href="{{ url('/admin/'.$category->idx.'') }}">{{ $category->name }}</a> - {{ $category->count }}개 <a href="{{ url('/admin/category/'.$category->idx.'?type=category') }}">삭제</a></p>
 				@endforeach
 			</div>
 		</div>

@@ -6,7 +6,7 @@
 
         <title>Laravel</title>
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet" type="text/css">
-        <link rel="stylesheet" type="text/css" href="public/css/app.css">
+        <link rel="stylesheet" type="text/css" href="{{ url('/') }}/public/css/app.css">
 
         <!-- Fonts -->
         
@@ -16,7 +16,7 @@
     <body>
     	<header>
     		<div class="container">
-    			<h2>준호의 기술블로그</h2>
+    			<a href="{{ url('/') }}"><h2>준호의 기술블로그</h2></a>
     			<a href="{{ url('/admin') }}" class="btn btn-light">관리자 모드</a>
     		</div>	
     	</header>
@@ -33,7 +33,7 @@
                     @endauth
                 </div>
             @endif -->
-            {{ Lib::error() }}
+            {{ app\Lib\Lib::error() }}
         @yield('content')
     </body>
 </html>

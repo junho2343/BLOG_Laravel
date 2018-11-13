@@ -13,6 +13,8 @@
 
 Route::get('/', 'BlogController@index');
 
+Route::get('/view/{category}/{post}', 'BlogController@post');
+
 
 /* CATEGORY + ADMIN */
 Route::get('/admin', 'AdminController@index');
@@ -21,14 +23,26 @@ Route::get('/admin', 'AdminController@index');
 Route::post('/admin/login', 'AdminController@login');
 
 // delete category
-Route::get('/admin/category', 'AdminController@destroy');
+Route::get('/admin/category/{category}', 'AdminController@destroy');
 
 // add category
 Route::post('/admin/category', 'AdminController@store');
 
+// edit category
+Route::post('/admin/category/{category}', 'AdminController@edit');
+
+/* category view */
+Route::get('/admin/{category}', 'AdminController@category');
+
+
+// delete post
+Route::get('/admin/post/{post}', 'AdminController@destroy');
+
 // add post
 Route::post('/admin/post', 'AdminController@store');
 
+// edit post
+Route::post('/admin/post/{post}', 'AdminController@edit');
 
-/* POST + ADMIN */
-Route::get('/admin/post/{idx}', 'AdminController@post');
+/* post view */
+Route::get('/admin/{category}/{post}', 'AdminController@post');

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
 class BlogController extends Controller
@@ -13,7 +14,25 @@ class BlogController extends Controller
      */
     public function index()
     {
-        return view("index");
+        $categorys_data = DB::select("SELECT * FROM category");
+
+        $posts_data = DB::select("
+            SELECT p.*, c.name, c.idx as c_idx
+            FROM post p 
+            JOIN category c
+            ON p.category = c.idx
+            ORDER BY count desc, date desc");
+
+        return view("index", ["categorys" => $categorys_data, "posts" => $posts_data]);
+    }
+    public function post ($category, $post) 
+    {
+
+        DB::table("post")->where("idx", $post)->update(["count" => DB::raw('count+1')]);
+
+        $data = DB::select("SELECT * FROM post WHERE idx = ?", [$post]);
+
+        return view("view", ["data" => $data[0]]);
     }
 
     /**
